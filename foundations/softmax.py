@@ -1,8 +1,13 @@
-class Solution:
-    def get_minimizer(self, iterations: int, learning_rate: float, init: int) -> float:
-        minimizer = init
+import numpy as np
+from numpy.typing import NDArray
 
-        for _ in range(iterations):
-            derivative = 2 * minimizer
-            minimizer = minimizer - learning_rate * derivative
-        return round(minimizer, 5)
+
+class Solution:
+
+    def softmax(self, z: NDArray[np.float64]) -> NDArray[np.float64]:
+        # z is a 1D NumPy array of logits
+        # Hint: subtract max(z) for numerical stability before computing exp
+        # return np.round(your_answer, 4)
+        shifted = z - np.max(z) # substract the max value for numeric stability.
+        exps = np.exp(shifted) # exponentiate each element.
+        return np.round(exps / np.sum(exps), 4)
